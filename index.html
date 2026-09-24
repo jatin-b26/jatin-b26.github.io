@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reminder Bot - WhatsApp reminders that show up on time</title>
+<!-- SEARCH CONSOLE: once you create the URL-prefix property below, add your
+     <meta name="google-site-verification" content="..."> line before this comment. -->
+<link rel="icon" href="logo.png" type="image/png">
+<meta name="description" content="A private WhatsApp reminder service. Send a reminder as a message; it is stored, checked every minute, and delivered back to you on time.">
+<style>
+  :root {
+    color-scheme: dark light;
+    --ink: #0d1317;
+    --panel: #141d26;
+    --line: rgba(146, 166, 186, 0.16);
+    --text: #eaf1f7;
+    --mute: #8b9bad;
+    --accent: #58c7ff;
+    --accent-weak: rgba(88, 199, 255, 0.10);
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "JetBrains Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ink: #f4f7fa;
+      --panel: #ffffff;
+      --line: rgba(20, 29, 38, 0.14);
+      --text: #16202a;
+      --mute: #5b6b7a;
+      --accent: #0f83c9;
+      --accent-weak: rgba(15, 131, 201, 0.08);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  header.top {
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 0.7rem; font-weight: 700; letter-spacing: 0.01em; }
+  .brand img { width: 1.7rem; height: 1.7rem; border-radius: 0.4rem; display: block; }
+
+  main { padding: 3.4rem 0 4rem; }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin: 0 0 1rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.1rem;
+    font-weight: 750;
+  }
+  .lede { font-size: 1.08rem; color: var(--mute); margin: 0 0 2.6rem; max-width: 38ch; }
+
+  .tick {
+    display: flex; align-items: center; gap: 0.8rem;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 2.6rem;
+    font-family: var(--mono);
+    font-size: 0.84rem;
+    color: var(--mute);
+  }
+  .tick .live {
+    width: 0.5rem; height: 0.5rem; border-radius: 50%;
+    background: var(--accent); flex: none;
+    animation: pulse 3s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-weak); opacity: 1; }
+    50% { box-shadow: 0 0 0 6px var(--accent-weak); opacity: 0.85; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tick .live { animation: none; }
+  }
+  .tick code { color: var(--text); }
+
+  .steps { list-style: none; margin: 0 0 2.6rem; padding: 0; display: grid; gap: 0.8rem; }
+  .steps li {
+    display: grid;
+    grid-template-columns: 2.6rem 1fr;
+    gap: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.05rem 1.1rem;
+  }
+  .steps .idx {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    padding-top: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+  .steps b { display: block; font-weight: 650; margin-bottom: 0.15rem; }
+  .steps p { margin: 0; color: var(--mute); font-size: 0.96rem; }
+
+  .promise {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-weak);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.15rem;
+    color: var(--text);
+    font-size: 0.98rem;
+  }
+  .promise strong { font-weight: 650; }
+  .fine { color: var(--mute); font-size: 0.88rem; margin: 1rem 0 0; }
+
+  footer.site {
+    border-top: 1px solid var(--line);
+    padding: 1.5rem 0 2.5rem;
+    color: var(--mute);
+    font-size: 0.88rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.4rem;
+    justify-content: space-between;
+  }
+  footer.site .mono { font-family: var(--mono); font-size: 0.78rem; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap brand">
+  <img src="logo.png" alt="" width="28" height="28">
+  <span>Reminder&nbsp;Bot</span>
+</div></header>
+
+<main class="wrap">
+  <p class="eyebrow">A private WhatsApp reminder service</p>
+  <h1>WhatsApp reminders that show up on time.</h1>
+  <p class="lede">Send the reminder as a WhatsApp message with the time you want it back. It is stored, checked every minute, and delivered to you exactly when you asked.</p>
+
+  <div class="tick">
+    <span class="live" aria-hidden="true"></span>
+    <span>checks every minute <code>&middot;</code> delivers on time</span>
+  </div>
+
+  <ul class="steps">
+    <li>
+      <span class="idx">01</span>
+      <div>
+        <b>Message</b>
+        <p>Send a reminder through WhatsApp and say when you want it back.</p>
+      </div>
+    </li>
+    <li>
+      <span class="idx">02</span>
+      <div>
+        <b>Stored</b>
+        <p>The text and the time are kept in a private Google Sheet tied to this app.</p>
+      </div>
+    </li>
+    <li>
+      <span class="idx">03</span>
+      <div>
+        <b>Delivered</b>
+        <p>A scheduler checks the sheet every minute. When it is time, WhatsApp pings you.</p>
+      </div>
+    </li>
+  </ul>
+
+  <p class="promise"><strong>No ads, no analytics, no tracking.</strong> Your reminders exist to remind you, nothing more.</p>
+  <p class="fine">We ask for your phone number and message text so we can store the reminder and send it back to you.</p>
+</main>
+
+<footer class="site"><div class="wrap">
+  <a href="privacy.html">Privacy policy</a>
+  <span class="mono">Reminder Bot &middot; privacy-first by design</span>
+</div></footer>
+</body>
+</html>
