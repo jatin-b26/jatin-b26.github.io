@@ -9,8 +9,9 @@ can verify subdomain ownership.
 
 ## What is here
 
-- `index.html` - one-page overview of what the bot does.
+- `index.html` - scroll page: how it works, examples, demo, FAQ, status.
 - `privacy.html` - privacy policy, including the contact address.
+- `status.json` - coarse public heartbeat (`state`, `last_ok`) for the status chip.
 - `logo.png` - app mark. Upload the same file in the Google consent screen
   under Branding.
 
