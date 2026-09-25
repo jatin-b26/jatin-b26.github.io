@@ -420,15 +420,15 @@
         <div class="text-left">
           <h2 class="mb-3 text-3xl font-bold tracking-tight">What the bot does in chat</h2>
           <p class="mb-5 max-w-[42ch] text-muted-foreground">
-            Free language is understood by the AI parse step. Garbage gets the format hint. Due rows get the cron ping. Sample text only.
+            Three things that actually land in the thread. Sample text only.
           </p>
 
           <ul class="space-y-4 text-left text-sm">
             <li class="flex gap-3">
               <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent"></span>
               <div>
-                <p class="font-semibold">Understands free language</p>
-                <p class="text-muted-foreground">Messy wording still becomes task + time when the model can parse it.</p>
+                <p class="font-semibold">Loose wording still lands</p>
+                <p class="text-muted-foreground">"hey can u remind me to call the dentist tomorrow morning 9?" parses the same as a tidy sentence.</p>
               </div>
             </li>
             <li class="flex gap-3">
@@ -442,7 +442,7 @@
               <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-success"></span>
               <div>
                 <p class="font-semibold">When it works</p>
-                <p class="text-muted-foreground">Confirm after the sheet write, then <span class="font-mono text-xs">⏰ Reminder: …</span> from the cron.</p>
+                <p class="text-muted-foreground">Two replies land in the same thread: a save confirmation right away, then <span class="font-mono text-xs">⏰ Reminder: …</span> when it's due.</p>
               </div>
             </li>
           </ul>
@@ -483,7 +483,7 @@
         <div class="rb-faq text-left">
           <details class="rb-card">
             <summary>How do I message it?</summary>
-            <p>Free language. Say the task and the time, for example <span class="text-foreground">call the dentist tomorrow at 9am</span>. An AI step on the workflow parses it into task + time. No fixed template required when the model can parse it.</p>
+            <p>Any task plus any time works, for example <span class="text-foreground">call the dentist tomorrow at 9am</span>. No fixed template. A time given without a timezone is read as Asia/Kolkata.</p>
           </details>
           <details class="rb-card">
             <summary>What if it does not understand?</summary>
