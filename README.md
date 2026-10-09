@@ -15,12 +15,6 @@ can verify subdomain ownership.
 - `logo.png` - app mark. Upload the same file in the Google consent screen
   under Branding.
 
-## Editing
-
-Push to `master`. GitHub Pages rebuilds in about a minute.
-
-Do not commit credentials, tokens, phone numbers, or private server details.
-This repo is public.
 
 ## Search Console
 
